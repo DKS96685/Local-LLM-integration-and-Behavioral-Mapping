@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-// Dynamic import for node-fetch (CommonJS)
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 const app = express();
