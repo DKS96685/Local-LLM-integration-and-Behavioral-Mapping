@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// Refined KPI Badge
 const KPIBadge = ({ name }) => (
   <span style={{
     backgroundColor: 'rgba(79, 70, 229, 0.1)',
