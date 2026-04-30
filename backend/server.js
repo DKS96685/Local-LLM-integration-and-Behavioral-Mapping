@@ -9,18 +9,16 @@ app.use(express.json());
 
 const PORT = 3001;
 
-// DeepThought Role Simulation - Trinethra Module
+//Trinethra Module
 app.post('/analyze', async (req, res) => {
     const { transcript } = req.body;
 
-    // GUARDRAIL 1: Input Validation (Guideline #3)
     if (!transcript || transcript.trim().length < 50) {
         return res.status(400).json({ 
             error: "Transcript is too short. Please provide a detailed supervisor conversation for diagnostic mapping." 
         });
     }
 
-    // SYSTEM PROMPT: Forces AI to use specific DT KPIs and Rubric logic
     const systemPrompt = `
     You are the Trinethra AI Module, a diagnostic tool for DeepThought psychology interns.
     Analyze the provided supervisor transcript based on the "Fellow" model.
@@ -51,15 +49,14 @@ app.post('/analyze', async (req, res) => {
     }`;
 
     try {
-        // Calling local Ollama API
         const response = await fetch('http://localhost:11434/api/generate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                model: 'llama3.2', // Your 2.0 GB pulled model
+                model: 'llama3.2', 
                 prompt: `${systemPrompt}\n\nTranscript: ${transcript}`,
                 stream: false,
-                format: 'json' // Challenge 2: Ensuring Structured Output Reliability
+                format: 'json' 
             })
         });
 
@@ -67,10 +64,8 @@ app.post('/analyze', async (req, res) => {
 
         const data = await response.json();
         
-        // GUARDRAIL 2: Parsing & Validation
         const finalAnalysis = JSON.parse(data.response);
         
-        // Final response to Frontend
         res.json(finalAnalysis);
 
     } catch (error) {
