@@ -18,8 +18,7 @@
 
 ## 📊 System Architecture
 
-![System Architecture](./architecture-sketch.png) 
-*(Note: Replace the filename above with the actual name of your hand-drawn sketch photo)*
+![System Architecture](./architecture-sketch.jpeg)
 
 ## 🧠 Scientific Execution & Hallucination Guardrails
 
